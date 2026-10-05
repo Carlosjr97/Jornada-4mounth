@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4 Meses: Em Busca do Emprego Perdido</title>
+    <!-- fonte de jogo antigo (pixel) para o título -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+<main class="tela-inicial"> <!-- Conteúdo principal da tela, classe CSS para a main -->
+    <!-- aqui em baixo estamos declarando uma imagem para a tela 
+    src = usamos src para o caminho da imagem 
+    alt = usamos alt para descrever imagem
+    class capa-jogo mais uma classe, agora para a imagem
+    -->
+    <img 
+        src="img/capa-jogo.png"
+        alt="Capa do jogo"
+        class="capa-jogo" 
+        >
+
+    <!-- título do jogo: a linha de cima é grande e o span é a linha menor de baixo -->
+    <h1 class="titulo-jogo">
+        Emprego 2026:
+        <span class="subtitulo-jogo">Modo Impossível</span>
+    </h1>
+
+    <button id="btnPlay" onclick="window.location.href='play.html'"> <!-- Criando botão usamos btnPlay para identificar o botão -->
+        ▶ JOGAR <!-- conteúdo do botão -->
+    </button> <!-- fechamento do botão -->
+</main> <!-- fechamento da main conteúdo principal -->
+
+<script src="script.js"></script> <!-- linkando com o arquivo javascript -->
+</body>
+</html>

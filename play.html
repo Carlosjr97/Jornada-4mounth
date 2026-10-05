@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4 Meses: Em Busca do Emprego Perdido</title>
+    <!-- fonte de jogo antigo (pixel), a mesma do título da capa -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+    <link rel="stylesheet" href="play.css">
+
+</head>
+
+<body>
+<main class="tela-inicial"> <!-- Conteúdo principal da tela, classe CSS para a main -->
+    <!-- aqui em baixo estamos declarando uma imagem para a tela
+    src = usamos src para o caminho da imagem
+    alt = usamos alt para descrever imagem
+    class capa-jogo mais uma classe, agora para a imagem
+    -->
+    <img
+        src="img/cenario.png"
+        alt="Capa do jogo"
+        class="capa-jogo" 
+        >
+
+    <!-- porta do prédio: fica por cima da porta desenhada no cenário
+    as duas folhas são recortes do próprio cenario.png, por isso não dá para ver diferença enquanto está fechada -->
+    <div class="porta" id="porta">
+        <img src="img/porta-esquerda.png" alt="" class="porta-esquerda" id="portaEsquerda">
+        <img src="img/porta-direita.png" alt="" class="porta-direita" id="portaDireita">
+    </div>
+
+    <!-- cadeado que tranca a porta durante o jogo e a placa com o objetivo -->
+    <img src="img/cadeado.png" alt="porta trancada" class="cadeado" id="cadeado">
+    <!-- o span separa a palavra "emprego" para ela ficar grande e brilhando: é o prêmio do jogo -->
+    <p class="placa-objetivo">
+        Complete as missões<br>
+        e consiga um
+        <span class="placa-premio">emprego</span>
+    </p>
+
+    <img 
+        src="img/parado.png"
+        alt="personagem parado"
+        class="personagem-parado" 
+        id="imgPersonagem"
+        >
+    
+        <img 
+        src="img/azul.png"
+        alt="diamante azul"
+        class="diamante-azul" 
+        id="imgDiamante"
+        >
+
+        <img 
+        src="img/bloqueado.png"
+        alt="bloqueado one"
+        class="blocked-one" 
+        id="blockedOne"
+        >
+
+        <img 
+        src="img/bloqueado.png"
+        alt="bloqueado two"
+        class="blocked-two" 
+        id="blockedTwo"
+        >
+
+        <img 
+        src="img/bloqueado.png"
+        alt="bloqueado three"
+        class="blocked-three" 
+        id="blockedThree"
+        >
+        <div class="mission-one" id="btnCompletefirstmission">
+            <h3 class="h3-one">Entre para faculdade</h3>
+            <button class="button-one">Complete a 1º missão</button>
+        </div>
+
+        <div class="mission-two" id="btnCompletesecondmission">
+            <h3 class="h3-one">Faça cursos de especialização</h3>
+            <button class="button-one">Complete a 2º missão</button>
+        </div>
+
+        <div class="mission-three" id="btnCompletethirdmission">
+            <h3 class="h3-one">Monte um currículo otimizado para ATS</h3>
+            <button class="button-one">Complete a 3º missão</button>
+        </div>
+
+        <div class="mission-fourth" id="btnCompletefourthmission">
+            <h3 class="h3-one">Fazer contato com recrutadores</h3>
+            <button class="button-one">Complete a 4º e última missão</button>
+        </div>
+
+        <!-- tela de game over: começa escondida, o JavaScript mostra depois que o personagem entra no prédio -->
+        <div class="game-over" id="telaGameOver">
+            <img src="img/sergio-malandro.jpg" alt="Game over" class="imagem-game-over">
+            <button class="botao-reiniciar" onclick="window.location.href='index.html'">
+                ↻ REINICIAR
+            </button>
+        </div>
+</main> <!-- fechamento da main conteúdo principal -->
+
+<script src="script.js"></script> <!-- linkando com o arquivo javascript -->
+</body>
+</html>

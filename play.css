@@ -1,0 +1,365 @@
+* { /* aqui esta todos os elementos do HTML*/
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/*  Configurações gerais da página */
+
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    background-color: #000;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+
+    /* centraliza o palco do jogo na tela */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* palco do jogo - sempre na proporção 16:9, igual ao cenario.png
+   assim as porcentagens (left, bottom) caem sempre no mesmo ponto do cenário */
+.tela-inicial {
+    width: min(100vw, calc(100dvh * 16 / 9));
+    aspect-ratio: 16 / 9;
+
+    container-type: inline-size;
+
+    position: relative; /* os elementos com position: absolute usam o palco como referência */
+}
+
+/* o cenário ocupa o palco inteiro */
+.capa-jogo {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    image-rendering: pixelated;
+}
+
+/* personagem parado em frente à porta do prédio
+   left   = posição horizontal (84.4% é o meio da porta)
+   bottom = distância do pé até a parte de baixo do cenário (16% é a calçada)
+   height = tamanho do personagem em relação ao cenário */
+.personagem-parado {
+    position: absolute;
+    left: 84.4%;
+    bottom: 6%;
+    height: 20%;
+    transform: translateX(-50%); /* centraliza a imagem no ponto do left */
+
+    image-rendering: pixelated;
+}
+
+/* porta do prédio - mesma posição e tamanho da porta desenhada no cenário */
+.porta {
+    position: absolute;
+    left: 79.79%;
+    bottom: 20.37%;
+    width: 9.167%;
+    height: 19.26%;
+
+    overflow: hidden; /* esconde as folhas quando elas deslizam para os lados */
+    background: linear-gradient(#ffe9a6, #c98a4b); /* luz de dentro do prédio */
+}
+
+/* as duas folhas da porta */
+.porta-esquerda,
+.porta-direita {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+
+    transition: transform 1s ease-in-out; /* desliza suave ao abrir e fechar */
+    image-rendering: pixelated;
+}
+.porta-esquerda { left: 0; }
+.porta-direita  { left: 50%; }
+
+/* quando a porta ganha a classe "aberta" cada folha desliza para o seu lado */
+.porta.aberta .porta-esquerda { transform: translateX(-100%); }
+.porta.aberta .porta-direita  { transform: translateX(100%); }
+
+/* cadeado no meio da porta */
+.cadeado {
+    position: absolute;
+    left: 84.4%;
+    bottom: 28%;
+    height: 7%;
+    transform: translateX(-50%);
+
+    transition: bottom 0.6s ease-in, opacity 0.6s ease-in; /* usado quando ele é destrancado */
+    image-rendering: pixelated;
+}
+
+/* quando ganha a classe "destrancado" o cadeado cai e some */
+.cadeado.destrancado {
+    bottom: 21%;
+    opacity: 0;
+}
+
+/* placa com o objetivo do jogo, em cima da entrada do prédio
+   é um letreiro luminoso: borda dourada e um brilho que pulsa */
+.placa-objetivo {
+    position: absolute;
+    left: 85.2%;
+    bottom: 51%;
+    width: 24%;
+    transform: translateX(-50%);
+
+    padding: 1cqw 0.6cqw;
+    background-color: #1a1426;
+    border: 0.4cqw solid #ffd76b;
+    color: white;
+
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 0.75cqw; /* cqw = % da largura do palco, o texto cresce junto com o jogo */
+    line-height: 1.7;
+    text-align: center;
+
+    animation: brilhar 1.6s ease-in-out infinite;
+}
+
+/* a palavra "emprego": grande, dourada e na linha de baixo */
+.placa-premio {
+    display: block; /* joga o span para a linha de baixo */
+    margin-top: 0.6cqw;
+
+    font-size: 2.5cqw;
+    line-height: 1.2;
+    text-transform: uppercase;
+
+    color: #ffd76b;
+    text-shadow: 0 0.3cqw #A9020B, 0 0 1.2cqw #ffb300; /* sombra vermelha + luz dourada */
+}
+
+/* brilho da placa: a luz em volta aumenta e diminui */
+@keyframes brilhar {
+    0%   { box-shadow: 0 0 0.6cqw 0.1cqw #ffb300; }
+    50%  { box-shadow: 0 0 2.4cqw 0.7cqw #ffb300; }
+    100% { box-shadow: 0 0 0.6cqw 0.1cqw #ffb300; }
+}
+
+.diamante-azul {
+    position: absolute;
+    left: 62.5%;
+    bottom: 27%;
+    height: 5%;
+    transform: translateX(-50%); /* centraliza a imagem no ponto do left */
+    animation: flutuar 2s ease-in-out infinite; /* linha nova */
+    image-rendering: pixelated;
+}
+
+.blocked-one {
+    position: absolute;
+    left: 47%;
+    bottom: 27%;
+    height: 5%;
+    transform: translateX(-50%); /* centraliza a imagem no ponto do left */
+    animation: flutuar 2s ease-in-out infinite; /* linha nova */
+    image-rendering: pixelated;
+}
+
+.blocked-two {
+    position: absolute;
+    left: 26%;
+    bottom: 27%;
+    height: 5%;
+    transform: translateX(-50%); /* centraliza a imagem no ponto do left */
+    animation: flutuar 2s ease-in-out infinite; /* linha nova */
+    image-rendering: pixelated;
+}
+
+.blocked-three {
+    position: absolute;
+    left: 9.5%;
+    bottom: 27%;
+    height: 5%;
+    transform: translateX(-50%); /* centraliza a imagem no ponto do left */
+    animation: flutuar 2s ease-in-out infinite; /* linha nova */
+    image-rendering: pixelated;
+}
+
+
+/* animação do diamante flutuando: sobe e volta para o lugar */
+@keyframes flutuar {
+    0%   { transform: translateX(-50%) translateY(0); }
+    50%  { transform: translateX(-50%) translateY(-15%); }
+    100% { transform: translateX(-50%) translateY(0); }
+}
+
+.mission-one {
+    background-color: #003FD5;
+    position: absolute;
+    left: 62.5%;
+    bottom: 35%;
+    height: 10%;
+    width: 18%;
+    transform: translateX(-50%); /* centraliza a imagem no ponto do left */
+    animation: flutuar 2s ease-in-out infinite; /* linha nova */
+    image-rendering: pixelated;
+    border-radius: 10px;
+
+    /* centraliza o h3 e o button dentro da div */
+    display: flex;
+    flex-direction: column;  /* um embaixo do outro */
+    justify-content: center; /* centro na vertical */
+    align-items: center;     /* centro na horizontal */
+    gap: 8%;                 /* espaço entre o h3 e o button */
+}
+
+.mission-two {
+    background-color: #1E8E3E; /* verde, combinando com o diamante */
+    position: absolute;
+    left: 47%;                 /* mesmo left do .blocked-one */
+    bottom: 35%;
+    height: 10%;
+    width: 18%;
+    transform: translateX(-50%);
+    animation: flutuar 2s ease-in-out infinite;
+    border-radius: 10px;
+
+    display: none;             /* começa escondida, o JavaScript mostra depois */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8%;
+}
+
+.mission-three {
+    background-color: #B931F9; /* roxo, combinando com o diamante */
+    position: absolute;
+    left: 26%;                 /* mesmo left do .blocked-two */
+    bottom: 35%;
+    height: 10%;
+    width: 18%;
+    transform: translateX(-50%);
+    animation: flutuar 2s ease-in-out infinite;
+    border-radius: 10px;
+
+    display: none;             /* começa escondida, o JavaScript mostra depois */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8%;
+}
+
+.mission-fourth {
+    background-color: #FBBC01; /* roxo, combinando com o diamante */
+    position: absolute;
+    left: 11.5%;                /* um pouco à direita do diamante, para a caixa não sair da tela */
+    bottom: 35%;
+    height: 10%;
+    width: 18%;
+    transform: translateX(-50%);
+    animation: flutuar 2s ease-in-out infinite;
+    border-radius: 10px;
+
+    display: none;             /* começa escondida, o JavaScript mostra depois */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8%;
+}
+
+/* estilo igual para as 4 caixas de missão (mesmo visual do título da capa)
+   como este bloco vem depois, ele vale por cima do height e do width de cada caixa */
+.mission-one,
+.mission-two,
+.mission-three,
+.mission-fourth {
+    width: 22%;
+    height: auto;   /* a altura acompanha o tamanho do texto */
+    padding: 1cqw;
+    gap: 0.9cqw;
+
+    border: 0.3cqw solid #1a1426;
+    border-radius: 0;                 /* cantos retos, estilo pixel */
+    box-shadow: 0 0.5cqw 0 #1a1426;   /* sombra dura embaixo */
+}
+
+.h3-one{
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 0.85cqw; /* cqw = % da largura do palco, o texto cresce junto com o jogo */
+    font-weight: normal;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: white;
+    /* contorno escuro em volta das letras */
+    text-shadow:
+        0.12cqw 0 #1a1426, -0.12cqw 0 #1a1426, 0 0.12cqw #1a1426, 0 -0.12cqw #1a1426,
+        0.12cqw 0.12cqw #1a1426, -0.12cqw 0.12cqw #1a1426, 0.12cqw -0.12cqw #1a1426, -0.12cqw -0.12cqw #1a1426;
+}
+.button-one{
+    padding: 0.6cqw 0.8cqw;
+
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 0.7cqw;
+    line-height: 1.5;
+    text-transform: uppercase;
+
+    cursor: pointer;
+
+    border: 0.2cqw solid white;
+    background-color: #A9020B; /* mesmo vermelho do botão JOGAR */
+    color: white;
+}
+
+.button-one:hover {
+    transform: scale(1.08);
+}
+
+
+/* aqui é o conteúdo do botão*/
+
+/* tela de game over - cobre o palco inteiro */
+.game-over {
+    position: absolute;
+    inset: 0;      /* gruda nos 4 lados do palco */
+    z-index: 10;   /* fica na frente de tudo */
+    background-color: #000;
+
+    display: none; /* começa escondida, o JavaScript mostra depois */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4%;
+}
+
+/* quando ganha a classe "visivel" a tela aparece aos poucos */
+.game-over.visivel {
+    display: flex;
+    animation: aparecer 0.6s ease-in;
+}
+
+@keyframes aparecer {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.imagem-game-over {
+    height: 75%;
+    max-width: 95%;
+    object-fit: contain;
+}
+
+.botao-reiniciar {
+    padding: clamp(8px, 1.098cqw, 15px) clamp(20px, 2.928cqw, 40px);
+    font-size: clamp(14px, 1.757cqw, 24px);
+    font-weight: bold;
+
+    cursor: pointer;
+
+    border: clamp(2px, 0.293cqw, 4px) solid white;
+    background: #A9020B;
+    color: white;
+}
+
+.botao-reiniciar:hover {
+    transform: scale(1.1);
+}

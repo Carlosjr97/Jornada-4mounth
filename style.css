@@ -1,0 +1,99 @@
+* { /* aqui esta todos os elementos do HTML*/
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/*  Configurações gerais da página */
+
+html, body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    background-color: #000;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+
+    /* centraliza a capa na tela */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* controla a tela inicial - tamanho fixo em qualquer tela */
+.tela-inicial {
+    /* sempre na proporção 16:9, igual à capa-jogo.png
+       assim o título e o botão caem sempre no mesmo ponto da imagem */
+    width: min(100vw, calc(100dvh * 16 / 9));
+    aspect-ratio: 16 / 9;
+
+    container-type: inline-size;
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* aqui definimos o tamanho da capa*/
+.capa-jogo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
+    image-rendering: pixelated;
+}
+/* título do jogo, no céu da capa */
+.titulo-jogo {
+    position: absolute;
+    top: 9%;
+    left: 40%;
+    transform: translateX(-50%);
+    width: 60%;
+
+    font-family: "Press Start 2P", "Courier New", monospace;
+    font-size: 5cqw; /* cqw = % da largura da capa, o texto cresce junto com a tela */
+    line-height: 1.3;
+    text-align: center;
+    text-transform: uppercase;
+
+    color: #ffd76b;
+    /* contorno escuro em volta das letras + sombra para baixo */
+    text-shadow:
+        0.25cqw 0 #1a1426, -0.25cqw 0 #1a1426, 0 0.25cqw #1a1426, 0 -0.25cqw #1a1426,
+        0.25cqw 0.25cqw #1a1426, -0.25cqw 0.25cqw #1a1426, 0.25cqw -0.25cqw #1a1426, -0.25cqw -0.25cqw #1a1426,
+        0 0.6cqw #A9020B;
+}
+
+/* linha de baixo do título */
+.subtitulo-jogo {
+    display: block; /* joga o span para a linha de baixo */
+    margin-top: 1.2cqw;
+
+    font-size: 1.75cqw;
+    color: white;
+}
+
+/* aqui é o conteúdo do botão*/
+#btnPlay {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    padding: clamp(8px, 1.098cqw, 15px) clamp(20px, 2.928cqw, 40px);
+    font-size: clamp(14px, 1.757cqw, 24px);
+    font-weight: bold;
+
+    cursor: pointer;
+
+    border: clamp(2px, 0.293cqw, 4px) solid white;
+    background: #A9020B;
+    color: white;
+
+    image-rendering: pixelated;
+}
+
+#btnPlay:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
